@@ -1,0 +1,20 @@
+name: Validate puzzles
+
+# Fails the deploy if puzzles.json is invalid, so a broken file never reaches
+# players (MentalMagic! development spec §6.1).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate puzzles.json
+        run: python3 tools/validate_puzzles.py puzzles.json
