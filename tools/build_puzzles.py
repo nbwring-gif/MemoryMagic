@@ -61,13 +61,13 @@ def evaluate(text, x):
         return 2 * x
     if t == "TRIPLE IT":
         return 3 * x
-    if t == "HALF OF IT":
+    if t in ("HALF OF IT", "HALVE IT"):
         return Fraction(x, 2)
     if t in ("IT SQUARED", "MULTIPLY IT BY ITSELF", "TIMES ITSELF"):
         return x * x
     if match(r"MULTIPLY BY (\d+(?:\.\d+)?)|X (\d+(?:\.\d+)?)"):
         return x * Fraction(first_group())
-    if match(r"/ ?(\d+)|DIVIDE BY (\d+)"):
+    if match(r"[/÷] ?(\d+)|DIVIDE BY (\d+)"):
         return Fraction(x, int(first_group()))
     if match(r"(\d+)/(\d+) OF (?:IT|THIS)"):
         return x * Fraction(int(m[1]), int(m[2]))
